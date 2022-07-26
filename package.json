@@ -8,7 +8,11 @@
     "electron:build": "vue-cli-service electron:build",
     "electron:serve": "vue-cli-service electron:serve",
     "postinstall": "electron-builder install-app-deps",
-    "postuninstall": "electron-builder install-app-deps"
+    "postuninstall": "electron-builder install-app-deps",
+    "electron:generate-icons": "electron-icon-builder --input=./public/icon.png --output=build --flatten",
+    "deploy": "vue-cli-service electron:build -p always -w",
+    "build:win": "vue-cli-service electron:build --windows",
+    "build:mac": "vue-cli-service electron:build --mac"
   },
   "main": "background.js",
   "dependencies": {
