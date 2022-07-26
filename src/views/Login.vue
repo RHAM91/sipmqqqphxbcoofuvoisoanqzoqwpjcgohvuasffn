@@ -105,7 +105,7 @@ export default {
                     this.get_token(data.data.token)
                     //this.set_t2(data.data.token)
 
-                    this.$router.replace('Main')
+                    this.$router.replace('Tablero')
     
                 }
 

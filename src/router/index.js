@@ -67,7 +67,7 @@ router.beforeEach((to, from, next) =>{
         if (autorizado && !usuario) {
             next('login')
         }else if(!autorizado && usuario){
-            next('Main')
+            next('Tablero')
         }else{
             next()
         }
