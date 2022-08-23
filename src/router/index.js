@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Login from '@/views/Login.vue'
 import Tablero from '@/views/Tablero.vue'
 import Inicio from '@/views/Inicio.vue'
+import Vacaciones from '@/views/Vacaciones.vue'
 import axios from 'axios'
 import { IP, PUERTO } from '../config/parametros'
 
@@ -34,6 +35,14 @@ Vue.use(VueRouter)
         path: '/inicio',
         name: 'Inicio',
         component: Inicio,
+        meta:{
+            autentificado: true
+        }
+    },
+    {
+        path: '/vacaciones',
+        name: 'Vacaciones',
+        component: Vacaciones,
         meta:{
             autentificado: true
         }

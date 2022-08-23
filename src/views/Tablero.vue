@@ -6,12 +6,12 @@
         <div class="cuerpo_inicio_modulos">
             <div class="modulos">
 
-                <div class="modulo" @click="set_ruta('Miembros')">
+                <div class="modulo" @click="set_ruta('Vacaciones')">
                     <div class="titulo_modulo">
-                        MIEMBROS
+                        VACACIONES
                     </div>
                     <div class="cuerpo_modulo">
-                        <i class="fas fa-users"></i>
+                        <i class="fas fa-calendar-check"></i>
                     </div>
                 </div>
 
@@ -26,11 +26,20 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import store from '../store'
+import VueSocketIOExt from 'vue-socket.io-extended'
+import io from 'socket.io-client'
 import axios from 'axios'
 import { pregunta } from '../components/functions/alertas'
 import { IP, PUERTO } from '@/config/parametros'
+import { mapActions, mapState } from 'vuex'
+
 export default {
     name: 'Principal',
+    computed: {
+        ...mapState(['idusuario', 'permisos', 'tipo'])
+    },
     data() {
         return {
             
@@ -56,6 +65,36 @@ export default {
                 }
             })
         },
+        iniciando_conexion(){
+
+            // SE INICIA LA CONEXION UNA VEZ ESTÉ LOGUEADO
+
+            const options = {'forceNew':true }
+
+            const t = JSON.parse(localStorage.getItem('kat'))
+            const token = t != null ? t.token.headers.Authorization.split(' ')[1] : 'nada'
+
+            const ioInstance = io(`http://${IP}:${PUERTO}/?token=${token}`, {
+                reconnection: true,
+                reconnectionDelay: 500,
+                maxReconnectionAttempts: Infinity
+            })
+
+
+            Vue.use(VueSocketIOExt, ioInstance, {
+                store, // vuex store instance
+                actionPrefix: 'SOCKET_', // keep prefix in uppercase
+                eventToActionTransformer: (actionName) => actionName // cancel camel case
+            })
+
+        },
+        ...mapActions(['descargar_datos', 'receptor', 'getPermission'])
+    },
+    mounted() {
+        this.iniciando_conexion()
+        this.descargar_datos(this.$socket) // descarga los datos nuevos al iniciar app
+        this.receptor() // esta funcion recibe la orden de actulizar un modulo en especifico y descarga los datos cuando haya nueva informacion disponible
+        this.getPermission() // descarga los permisos de cada modulo
     },
 }
 </script>
