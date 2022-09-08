@@ -1,5 +1,6 @@
 <template>
     <div class="contenedor">
+        <!-- ESTE ES EL ASIDE, EL BORDE LATERAL CAFE -->
         <div class="asidex">
             <div class="icono_menu_a" @mouseenter="mostrar_titulo('inicio')" @mouseleave="ocultar_titulo('inicio')" @click="set_ruta('Tablero')">
                 <i class="fas fa-bars"></i>
