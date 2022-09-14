@@ -6,7 +6,16 @@
         <div class="cuerpo_inicio_modulos">
             <div class="modulos">
 
-                <div class="modulo" @click="set_ruta('Vacaciones')">
+                <div class="modulo" @click="set_ruta('Colaboradores')">
+                    <div class="titulo_modulo">
+                        COLABORADORES
+                    </div>
+                    <div class="cuerpo_modulo">
+                        <i class="fas fa-users"></i>
+                    </div>
+                </div>
+
+                 <div class="modulo" @click="set_ruta('Vacaciones')">
                     <div class="titulo_modulo">
                         VACACIONES
                     </div>
@@ -131,6 +140,7 @@ export default {
             width: 200px;
             height: 200px;
             border: 1px solid #e9e9e9;
+            margin-right: 10px;
         }
             .titulo_modulo{
                 width: 100%;

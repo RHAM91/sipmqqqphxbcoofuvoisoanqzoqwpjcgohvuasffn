@@ -44,12 +44,12 @@ export default new Vuex.Store({
       idusuario: '',
       loading_icono: false,
       rutas:[
-        //{api:'aprobar_miembros', set: 'set_aprobar_miembros'},
+        {api:'colaboradores', set: 'set_colaboradores'},
       ],
 
     //-----> produccion
 
-
+      colaboradores: [],
       
       //paises: [],
       filtro_busqueda: '',
@@ -86,7 +86,9 @@ export default new Vuex.Store({
     
     // ------> PRODUCCION
 
-   
+    set_colaboradores(state, data){
+        state.colaboradores = data
+    },
     
     set_loading(state, data){
         state.loading_icono = data
