@@ -45,11 +45,13 @@ export default new Vuex.Store({
       loading_icono: false,
       rutas:[
         {api:'colaboradores', set: 'set_colaboradores'},
+        {api:'areas', set: 'set_areas'},
       ],
 
     //-----> produccion
 
       colaboradores: [],
+      areas: [],
       
       //paises: [],
       filtro_busqueda: '',
@@ -89,7 +91,9 @@ export default new Vuex.Store({
     set_colaboradores(state, data){
         state.colaboradores = data
     },
-    
+    set_areas(state, data){
+        state.areas = data
+    },
     set_loading(state, data){
         state.loading_icono = data
     },

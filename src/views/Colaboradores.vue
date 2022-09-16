@@ -52,7 +52,7 @@ import axios from 'axios'
 
 import { mapActions, mapState } from 'vuex'
 
-import Configuracion from '../components/Configuracion/menu.vue'
+import Configuracion from '../components/Colaboradores/Configuracion/menu.vue'
 import Loading from '../components/others/Loading.vue'
 import FichaUsuario from '../components/Configuracion/Usuarios/FichaUsuario.vue'
 import MenuColaboradores from '../components/Colaboradores/menu.vue'
