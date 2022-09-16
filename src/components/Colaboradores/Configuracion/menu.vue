@@ -22,6 +22,14 @@
                 </div>
             </div>
         
+            <div class="submenu_modulo">
+                <div class="submenu_modulo_icon">
+                    <i class="fas fa-user-ninja"></i>
+                </div>
+                <div class="submenu_modulo_texto" @click="set_submodulo('puestos')">
+                    Puestos
+                </div>
+            </div>
 
         </div>
 
@@ -32,6 +40,7 @@
             </div>
             <div class="cuerpo_sub_seccion_b">
                 <Areas v-if="sub_modulo == 'areas'"/>
+                <Puestos v-if="sub_modulo == 'puestos'"/>
 
 
             </div>
@@ -42,6 +51,7 @@
 <script>
 
 import Areas from './Areas/ListaAreas.vue'
+import Puestos from './Puestos/ListaPuestos.vue'
 
 
 import { mapState } from 'vuex'
@@ -49,7 +59,8 @@ import { mapState } from 'vuex'
 
 export default {
     components:{
-        Areas
+        Areas,
+        Puestos
     },
     computed: {
         ...mapState(['permisos', 'tipo'])
