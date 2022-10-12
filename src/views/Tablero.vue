@@ -24,6 +24,17 @@
                     </div>
                 </div>
 
+                <div class="modulo" @click="set_ruta('Membresias')">
+                    <div class="titulo_modulo">
+                        MEMBRESIAS
+                    </div>
+                    <div class="cuerpo_modulo">
+                        <i class="fas fa-file-signature"></i>
+                    </div>
+                </div>
+
+               
+
             </div>
 
             <div class="cerrar_sesion_btn" @click="salir">
@@ -134,7 +145,9 @@ export default {
         height: 500px;
         display: flex;
         justify-content: center;
+        flex-wrap: wrap;
         align-items: center;
+        
     }
         .modulo{
             width: 200px;
