@@ -26,17 +26,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr v-for="(item, index) in solicitudes" :key="index">
                             <td>
-                                0001
+                                {{item.dpi}}
                             </td>
                             <td>
-                                Romario Torres
+                                {{item.nombre}}
                             </td>
                             <td>
-                                10/09/2022
+                                {{item.fecha_inicio | nfecha}}
                             </td>
                             <td style="text-align: center;">
+                                
                                 <b-button type="button" variant="warning" style="font-size: 9px;" size="sm" @click="abrir_modal()"><i class="fas fa-eye"></i></b-button>
                             </td>
                         </tr>
@@ -54,18 +55,32 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
 
 import ModalAprobacion from './ModalAprobacion.vue'
-
+import moment from 'moment'
+// import { ipcRenderer } from 'electron'
+// window.ipcRenderer = ipcRenderer
 
 export default {
     name: 'SolicitudesPendientes',
+    filters:{
+        nfecha: function(value){
+            let n = moment(value).format('DD-MM-YYYY')
+
+            return n
+        }
+    },
     components: {
         ModalAprobacion
     },
+    computed: {
+        ...mapState(['solicitudes'])
+    },
     data() {
         return {
-            modal: false
+            modal: false,
+            datos: []
         }
     },
     methods: {
@@ -74,8 +89,12 @@ export default {
         },
         cerrar_modal(){
             this.modal = false
-        }
-    },
+        },
+        // enviar_notificacion(){
+        //     ipcRenderer.send('notificacion_solicitud')
+        // },
+        ...mapActions(['getData'])
+    }
 }
 </script>
 

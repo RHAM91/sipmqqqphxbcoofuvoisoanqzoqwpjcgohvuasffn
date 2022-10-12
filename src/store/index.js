@@ -4,7 +4,8 @@ import axios from 'axios'
 import {IP, PUERTO} from '@/config/parametros'
 import VuexPersist from 'vuex-persist'
 import { minix } from '../components/functions/alertas'
-
+import { ipcRenderer } from 'electron'
+window.ipcRenderer = ipcRenderer
 
 Vue.use(Vuex)
 
@@ -47,6 +48,7 @@ export default new Vuex.Store({
         {api:'colaboradores', set: 'set_colaboradores'},
         {api:'areas', set: 'set_areas'},
         {api:'puestos', set: 'set_puestos'},
+        {api:'solicitudes', set: 'set_solicitudes'}, // SOLICITUDES DE VACACIONES
       ],
 
     //-----> produccion
@@ -54,6 +56,7 @@ export default new Vuex.Store({
       colaboradores: [],
       areas: [],
       puestos: [],
+      solicitudes: [], // VACACIONES
       
       //paises: [],
       filtro_busqueda: '',
@@ -101,6 +104,9 @@ export default new Vuex.Store({
     },
     set_loading(state, data){
         state.loading_icono = data
+    },
+    set_solicitudes(state, data){
+        state.solicitudes = data
     },
 
     //------> FILTROS
@@ -365,6 +371,10 @@ export default new Vuex.Store({
     },
     async receptor({state, dispatch}){ // recibe la orden de que modulo actualizar, descarga los datos nuevos
         state.socket.client.on('modulo', (mod)=>{
+
+            if (mod == 'solicitudes') {
+                ipcRenderer.send('notificacion_solicitud') // MODIFICAR ESTO PARA QUE SE VUELFA UN AFUNCION SEGUN EL MODULO SOLICITADO
+            }
 
             let filtro = state.rutas.filter(ruta => ruta.api == mod)
             

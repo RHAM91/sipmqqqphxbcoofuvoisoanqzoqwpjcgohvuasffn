@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, protocol, BrowserWindow, ipcMain } from 'electron'
+import { app, protocol, BrowserWindow, ipcMain, Notification } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 import { autoUpdater } from 'electron-updater'
@@ -11,6 +11,8 @@ import path from 'path'
 
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
+
+
 
 
 let win
@@ -121,6 +123,17 @@ ipcMain.on('ok_update', (event) =>{
   autoUpdater.quitAndInstall()
 })
 
+
+// EMITIR NOTIFIACION
+
+ipcMain.on('notificacion_solicitud', (evento) =>{
+
+  const NOTIFICATION_TITLE = 'Solicitud de vacaciones'
+  const NOTIFICATION_BODY  = 'Ha ingrasado una nueva solicitud'
+
+  new Notification({title: NOTIFICATION_TITLE, body: NOTIFICATION_BODY}).show()
+
+})
 
 // Exit cleanly on request from parent process in development mode.
 if (isDevelopment) {
