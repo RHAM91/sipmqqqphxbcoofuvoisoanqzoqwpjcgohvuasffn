@@ -18,7 +18,7 @@
                         </b-button>
                     </b-col>
                     <b-col sm="3" class="mt-3">
-                        <b-button type="button" variant="danger" block size="sm">
+                        <b-button type="button" variant="danger" block size="sm" @click="borrar_registro">
                             <b-icon icon="trash" aria-hidden="true"></b-icon> Borrar
                         </b-button>
                     </b-col>
@@ -83,8 +83,9 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import moment from 'moment'
+import { pregunta } from '../functions/alertas'
 export default {
     name: 'InfoColaborador',
     props:['codigo'],
@@ -109,7 +110,26 @@ export default {
         filtrar_datos(){
             let f = this.colaboradores.filter(r => r.codigo == this.codigo)
             this.datos = f[0]
-        }
+        },
+        async borrar_registro(){
+            
+            pregunta({titulo: 'Seguro que no deseas continuar?', texto: 'Se borrará todo lo que ya se ha ingresado', afirmacion: 'Si!, continuar'}, async (i) =>{
+
+                if (i) {
+                    let dp = {
+                        api: 'colaboradores',
+                        id: this.codigo,
+                        pull: true
+                    }
+
+                    await this.deleteData(dp)
+                    this.cerrar()
+                
+                }
+            })
+
+        },
+        ...mapActions(['deleteData'])
     },
     mounted() {
         this.filtrar_datos()
