@@ -30,7 +30,7 @@ const atexto = function(data){
 }
 
 
-const texto = async function(data, callback){
+const texto = async function(data, callback = () =>{}){
     const { value: respuesta } = await Swal.fire({
         title: 'Ingresa nuevo valor',
         input: 'text',
@@ -47,6 +47,27 @@ const texto = async function(data, callback){
         // Swal.fire(`Your IP address is ${respuesta}`)
         callback(respuesta)
       }
+}
+
+
+const textarea_ = async function(callback = (text) =>{}){
+
+  const { value: text } = await Swal.fire({
+    input: 'textarea',
+    inputLabel: 'ESCRIBE EL MOTIVO DE LA DENEGACIÓN',
+    inputPlaceholder: 'Escribe...',
+    // showCancelButton: true
+    inputValidator:(value) =>{
+      if (!value) {
+        return 'Debes escribir un motivo!'
+      }
+    }
+  })
+  
+  if (text) {
+    callback(text)
+  }
+
 }
 
 
@@ -72,5 +93,6 @@ export {
     minix,
     atexto,
     pregunta,
-    texto
+    texto,
+    textarea_
  } 

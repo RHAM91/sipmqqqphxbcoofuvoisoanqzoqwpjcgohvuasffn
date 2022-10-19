@@ -38,7 +38,7 @@
                             </td>
                             <td style="text-align: center;">
                                 
-                                <b-button type="button" variant="warning" style="font-size: 9px;" size="sm" @click="abrir_modal()"><i class="fas fa-eye"></i></b-button>
+                                <b-button type="button" variant="warning" style="font-size: 9px;" size="sm" @click="abrir_modal(item)"><i class="fas fa-eye"></i></b-button>
                             </td>
                         </tr>
                     </tbody>
@@ -46,7 +46,7 @@
             </b-col>
         </b-row>
 
-        <ModalAprobacion v-if="modal" v-on:salir="cerrar_modal" />
+        <ModalAprobacion v-if="modal" :datos_usuario="items" v-on:salir="cerrar_modal" />
 
 
     </b-container>
@@ -80,11 +80,13 @@ export default {
     data() {
         return {
             modal: false,
-            datos: []
+            datos: [],
+            items: ''
         }
     },
     methods: {
-        abrir_modal(){
+        abrir_modal(item){
+            this.items = item
             this.modal = true
         },
         cerrar_modal(){
