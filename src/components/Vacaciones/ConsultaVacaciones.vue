@@ -3,10 +3,9 @@
         <b-row>
             <b-col sm="12" class="mt-3">
                 <h3>
-                    Colaboradores
+                    Consulta vacaciones
                 </h3>
             </b-col>
-
             <b-col sm="12" class="mt-3">
                 <div class="marco">
                     <table class="table table-sm table-striped table-bordered" style="font-size: 11px;"> 
@@ -32,7 +31,7 @@
                                     {{item.nombre}}
                                 </td>
                                 <td style="text-align: center;">
-                                    <b-button type="button" variant="info" style="font-size: 9px;" size="sm" @click="info_colaborador(item.codigo)"><i class="fas fa-eye"></i></b-button>
+                                    <b-button type="button" variant="info" style="font-size: 9px;" size="sm" @click="abrir_modal(item)"><i class="fas fa-eye"></i></b-button>
                                 </td>
                             </tr>
                         </tbody>
@@ -40,16 +39,9 @@
 
                 </div>
             </b-col>
-
         </b-row>
 
-        <ModalCrearColaboradores v-if="modal" v-on:salir="cerrarModal" />
-        <InfoColaborador v-if="info_col" :codigo="codigo_colaborador" v-on:salir="cerrar_info_colaborador" />
-        
-
-        <div class="btn_agregar_colaborador" @click="mostrarModal">
-            <i class="fas fa-plus"></i>
-        </div>
+        <InfoVacaciones v-if="info_modal" :colaborador="obj_colaborador" v-on:cerrar="cerrar_modal" />
 
     </b-container>
 </template>
@@ -57,60 +49,34 @@
 <script>
 import { mapState } from 'vuex'
 
-import ModalCrearColaboradores from './CrearColaboradorModal.vue'
-import InfoColaborador from './InfoColaborador.vue'
+import InfoVacaciones from './InfoVacaciones.vue'
 
 export default {
-    name: 'ColaboradoresLista',
+    name:'ConsultaVacaciones',
     components:{
-        ModalCrearColaboradores,
-        InfoColaborador
+        InfoVacaciones
     },
     computed: {
         ...mapState(['colaboradores'])
     },
     data() {
         return {
-            modal: false,
-            info_col: false,
-            codigo_colaborador: ''
+            info_modal: false,
+            obj_colaborador: {}
         }
     },
     methods: {
-        mostrarModal(){
-            this.modal = true
+        abrir_modal(obj){
+            this.obj_colaborador = obj
+            this.info_modal = true
         },
-        cerrarModal(){
-            this.modal = false
-        },
-        info_colaborador(codigo){
-            this.codigo_colaborador = codigo
-            this.info_col = true
-        },
-        cerrar_info_colaborador(){
-            this.info_col = false
+        cerrar_modal(){
+            this.info_modal = false
         }
     },
 }
 </script>
 
 <style>
-    .btn_agregar_colaborador{
-        position: fixed;
-        bottom: 15px;
-        right: 15px;
-        background-color: #da7635;
-        border-radius: 50%;
-        width: 45px;
-        height: 45px;
-        color: white;
-        transition: .4s ease;
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-        .btn_agregar_colaborador:hover{
-            background-color: #de6228;
-        }
+
 </style>

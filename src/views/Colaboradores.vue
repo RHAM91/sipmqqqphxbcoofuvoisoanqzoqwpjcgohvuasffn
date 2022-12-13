@@ -70,7 +70,7 @@ export default {
     },
     data() {
         return {
-            modulo: 'Miembros',
+            modulo: 'menu_colaboradores',
             sub_menu: '',
             modal_ficha_usuario: false,
             btn_btn: ''

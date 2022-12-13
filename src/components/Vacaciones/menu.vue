@@ -13,14 +13,14 @@
                 Datos
             </div>
 
-            <div class="submenu_modulo">
+            <!-- <div class="submenu_modulo">
                 <div class="submenu_modulo_icon">
                     <i class="fas fa-file-alt"></i>
                 </div>
                 <div class="submenu_modulo_texto" @click="set_submodulo('formulario_solicitud')">
                     Formulario solicitud
                 </div>
-            </div>
+            </div> -->
 
             <div class="submenu_modulo">
                 <div class="submenu_modulo_icon">
@@ -28,6 +28,15 @@
                 </div>
                 <div class="submenu_modulo_texto" @click="set_submodulo('solicitudes_pendientes')">
                     Solicitudes pendientes
+                </div>
+            </div>
+
+            <div class="submenu_modulo">
+                <div class="submenu_modulo_icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="submenu_modulo_texto" @click="set_submodulo('consulta_vacaciones')">
+                    Consulta de vacaciones
                 </div>
             </div>
         
@@ -41,7 +50,7 @@
                     <i class="fas fa-users"></i>
                 </div>
                 <div class="submenu_modulo_texto" @click="set_submodulo('usuarios')">
-                    Usuarios
+                    Vacaciones otorgadas
                 </div>
             </div> -->
 
@@ -57,6 +66,7 @@
 
                 <FormuarioSolicitud v-if="sub_modulo == 'formulario_solicitud'"/>
                 <SolicitudesPendientes v-if="sub_modulo == 'solicitudes_pendientes'"/>
+                <ConsultaVacaciones v-if="sub_modulo == 'consulta_vacaciones'" />
 
             </div>
         </div>
@@ -67,6 +77,7 @@
 
 import FormuarioSolicitud from './FormularioSolicitud.vue'
 import SolicitudesPendientes from './SolicitudesPendientes.vue'
+import ConsultaVacaciones from './ConsultaVacaciones.vue'
 
 
 import { mapState } from 'vuex'
@@ -75,7 +86,8 @@ import { mapState } from 'vuex'
 export default {
     components:{
         FormuarioSolicitud,
-        SolicitudesPendientes
+        SolicitudesPendientes,
+        ConsultaVacaciones
     },
     computed: {
         ...mapState(['permisos', 'tipo'])
